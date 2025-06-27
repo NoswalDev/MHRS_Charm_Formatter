@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Skill Converter</title>
+  <style>
+    body { font-family:sans-serif; max-width:600px; margin:2em auto; }
+    label, button { display:block; margin:8px 0; }
+    pre { background:#f7f7f7; padding:1em; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Skill Converter (CSV ↔ JSON)</h1>
+
+  <label>
+    Pick a .txt/.csv (skill names) or .json file:
+    <input type="file" id="fileInput" accept=".txt,.csv,.json" />
+  </label>
+
+  <label>
+    Default Rarity (used only on CSV→JSON):
+    <input type="number" id="rarityInput" value="269484049" />
+  </label>
+
+  <button id="convertBtn" disabled>Convert &amp; Download</button>
+
+  <pre id="log"></pre>
+
+  <script src="main.js"></script>
+</body>
+</html>
