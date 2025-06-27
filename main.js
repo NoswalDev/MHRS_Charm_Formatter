@@ -1,6 +1,4 @@
-// main.js
-
-// ─── Skill name → ID lookup (include blank) ────────────────────────────────
+// ─── Skill name → ID lookup ────────────────────────────────────────────────
 const dictSkill = {
   "": 0,
   "Attack Boost": 1,       "Agitator": 2,
@@ -82,7 +80,7 @@ const dictSkill = {
 // ─── Invert to ID → name ────────────────────────────────────────────────────
 const idToName = {};
 for (let name in dictSkill) {
-  idToName[ dictSkill[name] ] = name;
+  idToName[dictSkill[name]] = name;
 }
 
 // ─── Grab DOM elements ─────────────────────────────────────────────────────
@@ -97,10 +95,11 @@ fileInput.addEventListener("change", () => {
   log.textContent = "";
 });
 
-// ─── Simplified download helper ────────────────────────────────────────────
-function downloadOutput(text, fileName, isJson) {
+// ─── Download helper ───────────────────────────────────────────────────────
+function downloadOutput(text, fileName) {
+  const isJson = fileName.endsWith(".json");
   const blob = new Blob([text], {
-    type: isJson ? "application/octet-stream" : "text/plain"
+    type: isJson ? "application/json" : "text/plain"
   });
   const url = URL.createObjectURL(blob);
   const a   = document.createElement("a");
@@ -112,13 +111,13 @@ function downloadOutput(text, fileName, isJson) {
   URL.revokeObjectURL(url);
 }
 
-// ─── Convert on button click ────────────────────────────────────────────────
+// ─── Convert on button click ───────────────────────────────────────────────
 btn.addEventListener("click", async () => {
   const text   = await fileInput.files[0].text();
   const rarity = +rarityInput.value;
   let output, fileName;
 
-  // Try JSON → TXT
+  // JSON → TXT branch
   try {
     const data = JSON.parse(text);
     if (!Array.isArray(data) ||
@@ -139,7 +138,7 @@ btn.addEventListener("click", async () => {
     log.textContent = `✅ JSON → TXT: ${output.split("\n").length} lines`;
   }
   catch {
-    // Fallback TXT → JSON
+    // TXT → JSON fallback
     const lines = text.split(/\r?\n/).filter(l => l.trim());
     const arr   = [];
 
@@ -162,11 +161,9 @@ btn.addEventListener("click", async () => {
     }
 
     output   = JSON.stringify(arr, null, 2);
-    fileName = "skills";  // no extension
+    fileName = "skills.json";
     log.textContent = `✅ TXT → JSON: ${arr.length} entries`;
   }
 
-  // download result
-  const isJson = (fileName === "skills");
-  downloadOutput(output, fileName, isJson);
+  downloadOutput(output, fileName);
 });
