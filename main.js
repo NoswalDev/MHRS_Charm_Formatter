@@ -1,7 +1,6 @@
 // ─── Skill name ↔ ID lookup ────────────────────────────────────────────────────
 const dictSkill = {
-  "":0,
-  "Attack Boost":1, "Agitator":2, "Peak Performance":3, "Resentment":4,
+  "":0, "Attack Boost":1, "Agitator":2, "Peak Performance":3, "Resentment":4,
   "Resuscitate":5,"Critical Eye":6,"Critical Boost":7,"Weakness Exploit":8,
   "Latent Power":9,"Maximum Might":10,"Critical Element":11,"Master's Touch":12,
   "Fire Attack":13,"Water Attack":14,"Ice Attack":15,"Thunder Attack":16,
@@ -75,14 +74,17 @@ btn.addEventListener("click", async () => {
     if (!Array.isArray(data[0].Skills) ||
         typeof data[0].Skills[0] !== "number") throw 0;
 
-    output   = data.map(obj => {
-      const [id1,id2]     = obj.Skills      || [];
-      const [lv1,lv2]     = obj.SkillLevels || [];
-      const [s1,s2,s3]    = obj.Slots       || [];
-      const name1 = idToName[id1] || `UNKNOWN(${id1})`;
-      const name2 = idToName[id2] || `UNKNOWN(${id2})`;
-      return [name1, lv1, name2, lv2, s1, s2, s3].join(",");
-    }).join("\n");
+  output = data.map(obj => {
+    const [id1, id2]       = obj.Skills      || [];
+    const [lv1, lv2]       = obj.SkillLevels || [];
+    const [s1, s2, s3]     = obj.Slots       || [];
+  
+    // use nullish coalescing so empty string stays empty
+    const name1 = idToName[id1] ?? `UNKNOWN(${id1})`;
+    const name2 = idToName[id2] ?? `UNKNOWN(${id2})`;
+  
+    return [ name1, lv1, name2, lv2, s1, s2, s3 ].join(",");
+  }).join("\n");
 
     fileName = "skills.txt";
     log.textContent = `✅ Converted JSON → ${output.split("\n").length} lines\n`;
