@@ -1,5 +1,6 @@
 // ─── Skill name ↔ ID lookup ────────────────────────────────────────────────────
 const dictSkill = {
+  "":0,
   "Attack Boost":1, "Agitator":2, "Peak Performance":3, "Resentment":4,
   "Resuscitate":5,"Critical Eye":6,"Critical Boost":7,"Weakness Exploit":8,
   "Latent Power":9,"Maximum Might":10,"Critical Element":11,"Master's Touch":12,
