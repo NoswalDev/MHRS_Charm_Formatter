@@ -3,30 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Skill Converter</title>
+  <title>MHRS Charm Formatter</title>
   <style>
-    body { font-family:sans-serif; max-width:600px; margin:2em auto; }
-    label, button { display:block; margin:8px 0; }
-    pre { background:#f7f7f7; padding:1em; white-space:pre-wrap; }
+    body { font-family: sans-serif; max-width: 600px; margin: 2em auto; }
+    h1 { text-align: center; }
+    label, button { display: block; margin: 0.75em 0; }
+    pre { background: #f7f7f7; padding: 1em; white-space: pre-wrap; }
+    footer { margin-top: 2em; font-size: 0.9em; color: #555; text-align: center; }
   </style>
 </head>
 <body>
-  <h1>Skill Converter (CSV ↔ JSON)</h1>
+  <h1>MHRS Charm Formatter</h1>
 
   <label>
-    Pick a .txt/.csv (skill names) or .json file:
-    <input type="file" id="fileInput" accept=".txt,.csv,.json" />
+    Pick your input file (any extension):
+    <input type="file" id="fileInput" />
   </label>
 
   <label>
-    Default Rarity (used only on CSV→JSON):
-    <input type="number" id="rarityInput" value="269484049" />
+    Default Rarity:
+    <select id="rarityInput">
+      <option value="269484047">Qurio R8</option>
+      <option value="269484048">Qurio R9</option>
+      <option value="269484049" selected>Qurio R10</option>
+    </select>
   </label>
 
   <button id="convertBtn" disabled>Convert &amp; Download</button>
-
   <pre id="log"></pre>
 
   <script src="main.js"></script>
+
+  <footer>
+    Translates JSON file output from Fexty’s Charm Editor mod to GameCat’s armor builder format<br>
+    and vice-versa.
+  </footer>
 </body>
 </html>
