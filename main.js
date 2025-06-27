@@ -119,15 +119,15 @@ btn.addEventListener("click", async () => {
   }
 
   // ─── Trigger download ────────────────────────────────────────────────────
-  const blob = new Blob([output], {
-    type: fileName === "skills" 
-          ? "application/json" 
-          : "text/plain"
-  });
-  const url = URL.createObjectURL(blob);
-  const a   = document.createElement("a");
-  a.href     = url;
-  a.download = fileName;
+  const mime = (fileName === "skills")
+    ? "application/octet-stream"
+    : "text/plain";
+  
+  const blob = new Blob([output], { type: mime });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href       = url;
+  a.download   = fileName;
   document.body.appendChild(a);
   a.click();
   a.remove();
